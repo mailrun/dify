@@ -1,4 +1,12 @@
 #!/bin/sh
+
+# web/.husky/pre-commit 是一个 Git 钩子脚本，用于在提交代码到仓库之前执行一系列检查。
+# 这个脚本主要对 api 和 web 目录下的修改进行检查，确保代码风格一致性和单元测试通过。
+# 1.如果 api 目录被修改，则运行 ruff linter 进行代码风格检查，并自动修复可修复的问题。如果 linter 检查失败，则打印错误信息并退出提交。
+# 2.如果 web 目录被修改，则切换到 web 目录，运行 lint-staged 进行代码风格检查。同时，检查 utils 目录下的修改文件，
+# 确保每个修改的文件都有对应的单元测试文件，并运行这些单元测试。如果单元测试失败，则打印错误信息并退出提交。
+
+
 # get the list of modified files
 files=$(git diff --cached --name-only)
 
